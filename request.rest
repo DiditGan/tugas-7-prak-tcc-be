@@ -1,0 +1,34 @@
+GET http://localhost:5000/notes
+
+###
+# Create
+POST http://localhost:5000/add-note
+Content-Type: application/json
+
+{
+    "judul": "Note Pertama Yeyy",
+    "isi": "Isi apa ajalah yang penting Notenya berhasil"
+}
+
+###
+# Update
+PUT http://localhost:5000/edit-note/1
+Content-Type: application/json
+
+{
+    "judul": "Berhasil juga yeay",
+    "isi": "Dah mummet ewww"
+}
+
+###
+# Delete
+DELETE http://localhost:5000/delete-note/2
+
+###
+POST http://localhost:5000/add-note
+Content-Type: application/json
+
+{
+    "judul" : "Migrasi GCP",
+    "isi" : "Mencoba melakukan migrasi ke Google Cloud Platform"
+}
