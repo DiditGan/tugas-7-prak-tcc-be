@@ -1,10 +1,23 @@
-import express from 'express';
-import cors from "cors";
-import NoteRoute from "./routes/NoteRoute.js";
+import app from "./app.js";
+import { sequelize } from "./config/Database.js";
+import dotenv from "dotenv";
+import router from "./routes/index.js";
+dotenv.config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(NoteRoute);
+const port = process.env.PORT || 5000;
 
-app.listen(5000, ()=> console.log('Server up and running'));
+app.use("/api", router);
+
+(async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+        await sequelize.sync();
+        console.log('Database synchronized.');
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+})();

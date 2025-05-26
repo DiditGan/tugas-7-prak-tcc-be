@@ -1,34 +1,59 @@
-GET http://localhost:5000/notes
+GET http://localhost:5000/api/notes
 
 ###
-# Create
-POST http://localhost:5000/add-note
+# Register user
+POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
-    "judul": "Note Pertama Yeyy",
-    "isi": "Isi apa ajalah yang penting Notenya berhasil"
+    "name": "Test User",
+    "email": "testuser@email.com",
+    "password": "password123"
+}
+
+###
+# Login user (dapatkan accessToken)
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "email": "testuser@email.com",
+    "password": "password123"
+}
+
+###
+# Create note (ganti {token} dengan accessToken hasil login)
+POST http://localhost:5000/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJUZXN0IFVzZXIiLCJlbWFpbCI6InRlc3R1c2VyQGVtYWlsLmNvbSIsImlhdCI6MTc0ODI1MzMyMiwiZXhwIjoxNzQ4MjU2OTIyfQ.-uEnDAHQj3OWhp0vKVxUgrO20GAFIza_D3NGQ9Yxn8k
+
+{
+    "title": "Note Pertama Yeyy",
+    "content": "Isi apa ajalah yang penting Notenya berhasil"
 }
 
 ###
 # Update
-PUT http://localhost:5000/edit-note/1
+PATCH http://localhost:5000/api/notes/1
 Content-Type: application/json
+Authorization: Bearer {token}
 
 {
-    "judul": "Berhasil juga yeay",
-    "isi": "Dah mummet ewww"
+    "title": "Berhasil juga yeay",
+    "content": "Dah mummet ewww"
 }
 
 ###
 # Delete
-DELETE http://localhost:5000/delete-note/2
+DELETE http://localhost:5000/api/notes/2
+Authorization: Bearer {token}
 
 ###
-POST http://localhost:5000/add-note
+POST http://localhost:5000/api/notes
 Content-Type: application/json
+Authorization: Bearer {token}
 
 {
-    "judul" : "Migrasi GCP",
-    "isi" : "Mencoba melakukan migrasi ke Google Cloud Platform"
+    "title" : "Migrasi GCP",
+    "content" : "Mencoba melakukan migrasi ke Google Cloud Platform"
 }

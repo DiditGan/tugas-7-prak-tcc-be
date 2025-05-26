@@ -1,8 +1,14 @@
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
-const db = new Sequelize('notes_db', 'root', '', {
-    host: '34.27.245.29',
-    dialect: 'mysql',
-});
-
-export default db;
+export const sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
+    {
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        logging: false
+    }
+);

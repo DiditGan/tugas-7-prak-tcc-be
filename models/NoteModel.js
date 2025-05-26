@@ -1,28 +1,34 @@
 import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import { sequelize } from "../config/Database.js";
+import { User } from "./UserModel.js";
 
 const { DataTypes } = Sequelize;
 
-
-const Note = db.define(
-  "note",
-  {
-    judul: {
-      type: DataTypes.STRING,
-      allowNull: false,
+export const Note = sequelize.define('notes', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-    isi: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-  },
-  {
-    freezeTableName: true,
-  }
-);
+    content: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    freezeTableName: true
+});
 
-export default Note;
+User.hasMany(Note, { foreignKey: 'userId', as: 'notes' });
+Note.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//     await sequelize.sync();
+// })();
