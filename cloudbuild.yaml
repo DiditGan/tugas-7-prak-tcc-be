@@ -1,8 +1,12 @@
 steps:
-  # Membuat image dengan perintah "cloud build -t gcr.io/$PROJECT_ID/tcc-be ."
-  # Project ID akan secara otomatis terisi ketika melakukan deploy di project yg dipilih
+  # Install nodemon secara global
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/tcc-be-yedhit", "."]
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        npm install -g nodemon
+        docker build -t gcr.io/$PROJECT_ID/tcc-be-yedhit .
 
   # Meng-upload/push image yg telah dibuat ke Artifact Registry
   # Pada bagian ini, dijalankan perintah "docker push 'gcr.io/$PROJECT_ID/tcc-be'"
