@@ -7,7 +7,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({
+    credentials: true,
+    origin: [
+        'https://c-04-460105.uc.r.appspot.com'
+        // 'http://localhost:3000' // uncomment jika ingin support local dev
+    ]
+}));
 app.use(cookieParser());
 app.use(express.json());
 

@@ -2,7 +2,7 @@ GET http://localhost:5000/api/notes
 
 ###
 # Register user
-POST http://localhost:5000/api/users
+POST https://tcc-be-yedhit-469569820136.us-central1.run.app/api/users
 Content-Type: application/json
 
 {
